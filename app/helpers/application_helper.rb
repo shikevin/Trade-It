@@ -2,7 +2,7 @@ module ApplicationHelper
 
   #Returns full title on per-page basis
   def full_title(page_title)
-    base_title = "First Rails App"
+    base_title = "Trade It!"
     if page_title.empty?
       base_title
     else
