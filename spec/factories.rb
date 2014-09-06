@@ -14,4 +14,16 @@ FactoryGirl.define do
     content "Lorem ipsum"
     user
   end
+
+  factory :sellingbook do
+    content "Math 135"
+    user
+    active true
+  end
+
+  factory :wantedbook do
+    content "Math 135"
+    user
+    active true
+  end
 end

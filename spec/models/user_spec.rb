@@ -15,6 +15,8 @@ describe User do
   it { should respond_to(:authenticate) }
   it { should respond_to(:admin) }
   it { should respond_to(:microposts) }
+  it { should respond_to(:sellingbooks) }
+  it { should respond_to(:wantedbooks) }
 
   it { should be_valid }
   it { should_not be_admin }
@@ -138,9 +140,53 @@ describe User do
     it "should destroy associated microposts" do
       microposts = @user.microposts.to_a
       @user.destroy
-      expect (microposts).not_to be_empty
+      expect(microposts).not_to be_empty
       microposts.each do |micropost|
-        expect(Micropost.where(id: micropost.id).to be_empty)
+        expect(Micropost.where(id: micropost.id)).to be_empty
+      end
+    end
+  end
+
+  describe "sellingbook associations" do
+    before { @user.save }
+    let!(:older_sellingbook) do
+      FactoryGirl.create(:sellingbook, user: @user, created_at: 1.day.ago)
+    end
+    let!(:newer_sellingbook) do
+      FactoryGirl.create(:sellingbook, user: @user, created_at: 1.hour.ago)
+    end
+
+    it "should have the right microposts in the right order" do
+      expect(@user.sellingbooks.to_a).to eq [newer_sellingbook, older_sellingbook]
+    end
+    it "should destroy associated microposts" do
+      sellingbooks = @user.sellingbooks.to_a
+      @user.destroy
+      expect(sellingbooks).not_to be_empty
+      sellingbooks.each do |sellingbook|
+        expect(Sellingbook.where(id: sellingbook.id)).to be_empty
+      end
+    end
+  end
+
+  describe "wantedbook associations" do
+    before { @user.save }
+    let!(:older_wantedbook) do
+      FactoryGirl.create(:wantedbook, user: @user, created_at: 1.day.ago)
+    end
+    let!(:newer_wantedbook) do
+      FactoryGirl.create(:wantedbook, user: @user, created_at: 1.hour.ago)
+    end
+
+    it "should have the right microposts in the right order" do
+      expect(@user.wantedbooks.to_a).to eq [newer_wantedbook, older_wantedbook]
+    end
+    it "should destroy associated microposts" do
+      wantedbooks = @user.wantedbooks.to_a
+      @user.destroy
+      expect(wantedbooks).not_to be_empty
+      wantedbooks.each do |wantedbook|
+        expect(Wantedbook.where(id: wantedbook.id)).to be_empty
       end
     end
   end
