@@ -101,10 +101,20 @@ describe "User pages" do
 
   describe "profile page" do
     let(:user) { FactoryGirl.create(:user) }
+    let!(:w1) { FactoryGirl.create(:wantedbook, user: user, content: "Math 135", active: true) }
+    let(:w2) { FactoryGirl.create(:wantedbook, user: user, content: "ECE 124", active: true) }
+    let(:s1) { FactoryGirl.create(:sellingbook, user: user, content: "Math 111", active: true) }
+    let(:s2) { FactoryGirl.create(:sellingbook, user: userm content: "ECE 122", active: true) }
     before { visit user_path(user) }
 
     it { should have_content(user.name) }
     it { should have_title(user.name) }
+
+    describe "wantedbooks" do
+      it { should have_content(w1.content) }
+      it { should have_content(w2.content) }
+      it { should have_content(user.microposts.count) }
+    end
   end
 
   describe "edit" do
