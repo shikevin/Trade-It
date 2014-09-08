@@ -63,6 +63,32 @@ describe "Authentication" do
         end
       end
 
+      describe "in the Sellingbooks controller" do
+
+        describe "submitting to the create action" do
+          before { post sellingbooks_path }
+          specify { expect(response).to redirect_to(signin_path) }
+        end
+
+        describe "submitting to the destroy action" do
+          before { delete sellingbook_path(FactoryGirl.create(:sellingbook)) }
+          specify { expect(response).to redirect_to(signin_path) }
+        end
+      end
+
+      describe "in the Wantedbooks controller" do
+
+        describe "submitting to the create action" do
+          before { post wantedbooks_path }
+          specify { expect(response).to redirect_to(signin_path) }
+        end
+
+        describe "submitting to the destroy action" do
+          before { delete wantedbook_path(FactoryGirl.create(:wantedbook)) }
+          specify { expect(response).to redirect_to(signin_path) }
+        end
+      end
+
       describe "in the Users controller" do
         describe "visiting the edit page" do
           before { visit edit_user_path(user) }
