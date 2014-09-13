@@ -3,13 +3,13 @@
     <%= current_user.name %>
 </h1>
 <span>
-  <%= link_to "view my profile", current_user %>
+    <%= "Currently selling: " %>
+    <%= pluralize(current_user.sellingbooks.count, "book") %>
 </span>
-<p>
-    <span>
-        <%= pluralize(current_user.sellingbooks.count, "selling") %>
-    </span>
-    <span>
-        <%= pluralize(current_user.wantedbooks.count, "wanted") %>
-    </span>
-</p>
+<span>
+    <%= "Currently wanting: " %>
+    <%= pluralize(current_user.wantedbooks.count, "book") %>
+</span>
+<span>
+  <%= link_to "View Profile for Full List", current_user %>
+</span>
