@@ -3,7 +3,7 @@ class CreateWantedbooks < ActiveRecord::Migration
     create_table :wantedbooks do |t|
       t.string :content
       t.integer :user_id
-      t.boolean :active
+      t.boolean :active, :default => true
 
       t.timestamps
     end

@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 describe "TradePages" do
-  subject [ page ]
+
+  subject { page }
 
   let(:user) { FactoryGirl.create(:user) }
   before { sign_in user }

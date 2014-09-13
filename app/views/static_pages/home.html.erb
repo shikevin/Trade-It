@@ -1,11 +1,27 @@
-<div class="center hero-unit">
-  <h1>Welcome to the Trade It!</h1>
+<% if signed_in? %>
+    <div class="row">
+        <aside class="span4">
+            <section>
+                <%= render 'shared/user_info' %>
+            </section>
+        </aside>
+        <aside class="span4">
+            <%= render 'shared/sellingbook_form' %>
+        </aside>
+        <aside class="span4">
+            <%= render 'shared/wantedbook_form' %>
+        </aside>
+    </div>
+<% else %>
+    <div class="center hero-unit">
+      <h1>Welcome to the Trade It!</h1>
 
-  <h2>
-    Giving University of Waterloo students another option for
-      buying and selling textbooks to the
-    <a href="https://www.facebook.com/groups/UWtextbookexchange//">Facebook textbook exchange</a>
-  </h2>
+      <h2>
+        Giving University of Waterloo students another option for
+          buying and selling textbooks to the
+        <a href="https://www.facebook.com/groups/UWtextbookexchange//">Facebook textbook exchange</a>
+      </h2>
 
-  <%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
-</div>
+      <%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
+    </div>
+<% end %>

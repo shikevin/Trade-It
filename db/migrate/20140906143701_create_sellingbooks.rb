@@ -3,7 +3,7 @@ class CreateSellingbooks < ActiveRecord::Migration
     create_table :sellingbooks do |t|
       t.string :content
       t.integer :user_id
-      t.boolean :active
+      t.boolean :active, :default => true
 
       t.timestamps
     end
