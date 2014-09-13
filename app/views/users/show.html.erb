@@ -9,21 +9,21 @@
     </section>
   </aside>
   <div class = "span4">
-      <% if @user.wantedbooks.any? %>
-          <h3>Wanted Books (<%= @user.wantedbooks.count %>)</h3>
-          <ol class="wantedbooks">
-              <%= render @wantedbooks %>
-          </ol>
-          <%= will_paginate @wantedbooks %>
-      <% end %>
-  </div>
-  <div class = "span4">
       <% if @user.sellingbooks.any? %>
           <h3>Selling Books (<%= @user.sellingbooks.count %>)</h3>
           <ol class="sellingbooks">
               <%= render @sellingbooks %>
           </ol>
           <%= will_paginate @sellingbooks %>
+      <% end %>
+  </div>
+  <div class = "span4">
+      <% if @user.wantedbooks.any? %>
+          <h3>Wanted Books (<%= @user.wantedbooks.count %>)</h3>
+          <ol class="wantedbooks">
+              <%= render @wantedbooks %>
+          </ol>
+          <%= will_paginate @wantedbooks %>
       <% end %>
   </div>
 </div>
