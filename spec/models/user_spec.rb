@@ -167,6 +167,15 @@ describe User do
         expect(Sellingbook.where(id: sellingbook.id)).to be_empty
       end
     end
+
+    describe "selling book" do
+      let(:unfollowed_sell) do
+        FactoryGirl.create(:sellingbook, user: FactoryGirl.create(:user))
+      end
+      its(:sell_feed) { should include(:newer_sellingbook) }
+      its(:sell_feed) { should include(:older_sellingbook) }
+      its(:sell_feed) { should_not include(:unfollowed_sell) }
+    end
   end
 
   describe "wantedbook associations" do
@@ -188,6 +197,15 @@ describe User do
       wantedbooks.each do |wantedbook|
         expect(Wantedbook.where(id: wantedbook.id)).to be_empty
       end
+    end
+
+    describe "wanted book" do
+      let(:unfollowed_want) do
+        FactoryGirl.create(:wantedbook, user: FactoryGirl.create(:user))
+      end
+      its(:want_feed) { should include(:newer_wantedbook) }
+      its(:want_feed) { should include(:older_wantedbook) }
+      its(:want_feed) { should_not include(:unfollowed_want) }
     end
   end
 end

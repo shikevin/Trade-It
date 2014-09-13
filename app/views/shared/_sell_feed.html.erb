@@ -1,0 +1,6 @@
+<% if @sell_feed_items.any? %>
+    <ol class = "sellingbooks">
+        <%= render partial: 'shared/feed_item', collection: @sell_feed_items %>
+    </ol>
+    <%= will_paginate @sell_feed_items %>
+<% end %>

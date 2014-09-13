@@ -4,10 +4,12 @@ class WantedbooksController < ApplicationController
   def create
     @wantedbook = current_user.wantedbooks.build(wantedbook_params)
     @sellingbook = current_user.sellingbooks.build
+    @sell_feed_items = []
     if @wantedbook.save
       flash[:success] = "Course book: " + @wantedbook.content + " wanted"
       redirect_to root_url
     else
+      @want_feed_items = []
       render 'static_pages/home'
     end
   end

@@ -20,6 +20,14 @@ class User < ActiveRecord::Base
     Digest::SHA1.hexdigest(token.to_s)
   end
 
+  def sell_feed
+    Sellingbook.where("user_id = ?", id)
+  end
+
+  def want_feed
+    Wantedbook.where("user_id = ?", id)
+  end
+
   private
 
   def create_remember_token

@@ -12,6 +12,20 @@
             <%= render 'shared/wantedbook_form' %>
         </aside>
     </div>
+    <div class="row">
+        <aside class="span6">
+            <section>
+                <h3>Books I'm Selling: </h3>
+                <%= render 'shared/sell_feed' %>
+            </section>
+        </aside>
+        <aside class="span6">
+            <section>
+                <h3>Books I'm Wanting: </h3>
+                <%= render 'shared/want_feed' %>
+            </section>
+        </aside>
+    </div>
 <% else %>
     <div class="center hero-unit">
       <h1>Welcome to the Trade It!</h1>
