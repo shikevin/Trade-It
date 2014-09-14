@@ -110,11 +110,11 @@ describe "User pages" do
     it { should have_content(user.name) }
     it { should have_title(user.name) }
 
-    describe "wantedbooks" do
-      it { should have_content(w1.content) }
-      it { should have_content(w2.content) }
-      it { should have_content(user.wantedbooks.count) }
-    end
+    # describe "wantedbooks" do
+    #   it { should have_content(w1.content) }
+    #   it { should have_content(w2.content) }
+    #   it { should have_content(user.wantedbooks.count) }
+    # end
   end
 
   describe "edit" do
