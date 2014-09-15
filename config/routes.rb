@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :sellingbooks, only: [:create, :destroy]
   resources :wantedbooks, only: [:create, :destroy]
 
+  devise_for :user
   root 'static_pages#home'
   match '/signup',  to: 'users#new',            via: 'get'
   match '/signin',  to: 'sessions#new',         via: 'get'
