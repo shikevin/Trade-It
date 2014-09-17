@@ -1,4 +1,22 @@
 class User < ActiveRecord::Base
+
+  def self.new_with_session(params, session)
+    super.tap do |user|
+      if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
+        user.email = data["email"] if user.email.blank?
+      end
+    end
+  end
+
+  def self.from_omniauth(auth)
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      user.email = auth.info.email
+      user.password = Devise.friendly_token[0,20]
+      user.name = auth.info.name   # assuming the user model has a name
+      user.image = auth.info.image # assuming the user model has an image
+    end
+  end
+
   before_save { self.email = email.downcase } #callback to force downcase email before saving
   before_create :create_remember_token
 
@@ -8,20 +26,13 @@ class User < ActiveRecord::Base
   validates :name, presence: true, length: { maximum: 50 } #same as validates(:name, presence : true)
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(?:\.[a-z\d\-]+)*\.[a-z]+\z/i
   validates :email, presence: true, format: { with: VALID_EMAIL_REGEX },
-            uniqueness: { case_sensitive: false }
+  uniqueness: { case_sensitive: false }
   validates :password, length: { minimum: 6 }
   has_secure_password
 
   devise :omniauthable, :omniauth_providers => [:facebook]
   # attr_accessible :password, :password_confirmation
 
-  def self.new_with_session(params, session)
-    super.tap do |user|
-      if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
-        user.email = data["email"] if user.email.blank?
-      end
-    end
-  end
   # def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)
   #   data = ActiveSupport::JSON.decode(access_token.get('https://graph.facebook.com/me?'))
   #   if user = User.find_by_email(data["email"])
