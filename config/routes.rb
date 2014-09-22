@@ -4,7 +4,8 @@ Rails.application.routes.draw do
   resources :sellingbooks, only: [:create, :destroy]
   resources :wantedbooks, only: [:create, :destroy]
 
-  devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
+  devise_for :users
+  # devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
 
   root 'static_pages#home'
   match '/signup',  to: 'users#new',            via: 'get'
